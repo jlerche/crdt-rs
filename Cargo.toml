@@ -1,0 +1,7 @@
+[package]
+name = "crdt-rs"
+version = "0.1.0"
+authors = ["Jacob Lerche <jacob.lerche@gmail.com>"]
+
+[dependencies]
+indexmap = "1.0.1"
