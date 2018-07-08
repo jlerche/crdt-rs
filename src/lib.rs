@@ -1,5 +1,7 @@
-mod dot;
+extern crate indexmap;
+pub mod dot;
 pub mod dotsset;
+pub mod causal_context;
 #[cfg(test)]
 mod tests {
     #[test]

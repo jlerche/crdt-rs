@@ -5,6 +5,6 @@ pub struct Dot<T>
 where
     T: Eq + Hash + Clone,
 {
-    actor: T,
-    sequence: usize,
+    pub actor: T,
+    pub sequence: usize,
 }

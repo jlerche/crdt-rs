@@ -1,9 +1,7 @@
-extern crate indexmap;
-
 use std::cmp::Eq;
 use std::hash::Hash;
 
-use self::indexmap::IndexSet;
+use indexmap::IndexSet;
 use dot::Dot;
 
 pub trait DotStore {
@@ -56,6 +54,12 @@ impl<T: Hash + Eq + Clone> DotSet<T> {
     pub fn subtract(&mut self, other: DotSet<T>) {
         self.dots = self.dots.difference(&other.dots).cloned().collect();
     }
+
     // fn subtract_causal_context <- after implementing causal_context
-    // fn fold <- maybe
+
+    pub fn fold<F, U>(&self, f: F, acc: U) -> U
+        where F: FnMut(U, &Dot<T>) -> U
+    {
+        self.dots.iter().fold(acc, f)
+    }
 }
