@@ -11,7 +11,7 @@ pub trait DotStore {
 }
 
 pub struct DotSet<T: Hash + Eq + Clone> {
-    dots: IndexSet<Dot<T>>
+    pub dots: IndexSet<Dot<T>>
 }
 
 impl<T: Hash + Eq + Clone> DotStore for DotSet<T> {
@@ -43,7 +43,7 @@ impl<T: Hash + Eq + Clone> DotSet<T> {
         self.dots.contains(dot)
     }
 
-    pub fn union(&mut self, other: DotSet<T>) {
+    pub fn union(&mut self, other: &DotSet<T>) {
         self.dots = self.dots.union(&other.dots).cloned().collect();
     }
 
