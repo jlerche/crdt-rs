@@ -3,6 +3,7 @@ use std::hash::Hash;
 use std::mem;
 
 use indexmap::{IndexMap, IndexSet};
+use indexmap::map::Entry::{Occupied, Vacant};
 
 use dotsset::{DotSet, DotStore};
 use dot::Dot;
@@ -69,9 +70,23 @@ impl<T: Hash + Eq + Clone> CausalContext<T> {
         dot.sequence <= current || self.dot_set.has_element(&dot)
     }
 
-    pub fn union(&mut self, other: &Self) -> Self {
-        self.compressed.extend(other.compressed).
+    pub fn union(&mut self, other: &CausalContext<T>) {
+        for (k, v) in &other.compressed {
+            match self.compressed.entry(k.clone()) {
+                Occupied(mut val) => {
+                    if v > val.get() {
+                        val.insert(*v);
+                    }
+                }
+                Vacant(mut vac_entry) => {
+                    vac_entry.insert(*v);
+                }
+            }
+        }
+        self.dot_set.union(&other.dot_set);
+        self.compress();
     }
+
 
     fn compress(&mut self) {
         let old = mem::replace(&mut self.dot_set.dots, IndexSet::new());
@@ -80,3 +95,4 @@ impl<T: Hash + Eq + Clone> CausalContext<T> {
         }
     }
 }
+

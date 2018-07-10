@@ -1,4 +1,5 @@
 extern crate indexmap;
+extern crate itertools;
 pub mod dot;
 pub mod dotsset;
 pub mod causal_context;

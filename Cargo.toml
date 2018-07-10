@@ -5,3 +5,4 @@ authors = ["Jacob Lerche <jacob.lerche@gmail.com>"]
 
 [dependencies]
 indexmap = "1.0.1"
+itertools = "0.7.8"
