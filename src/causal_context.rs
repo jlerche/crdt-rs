@@ -5,7 +5,7 @@ use std::mem;
 use indexmap::{IndexMap, IndexSet};
 use indexmap::map::Entry::{Occupied, Vacant};
 
-use dotsset::{DotSet, DotStore};
+use dot_store::{DotSet, DotStore};
 use dot::Dot;
 
 pub struct CausalContext<T: Eq + Hash + Clone> {
